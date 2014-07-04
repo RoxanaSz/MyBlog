@@ -9,16 +9,20 @@
 </p>
 
 
-    <p>Tags:
-  <% @article.tags.each do |tag| %>
-    <tr>
-      <td><%= tag.name %></td>
-          
-<% end %>
-</p>
+<%= link_to 'Tags', article_tags_path(@article) %></br>
 
-<%= link_to 'Add Tags', new_tag_path %></br>
-<%= link_to 'Delete Tags', tag_path %></br>
+
+    <p><strong>Tags:</strong>
+  <% @article.tags.each do |tag| %>  
+  <tr> 
+    <!-- <td><%= tag.name %></td> --> 
+     <a href= "tag.name">    
+     <td><%= link_to tag.name %></td>   
+ <% end %></p> 
+
+
+
+
 
 <%= link_to 'Edit Article', edit_article_path(@article) %></br>
 <%= link_to 'Back', welcome_index_path %>

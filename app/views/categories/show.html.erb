@@ -2,7 +2,7 @@
   <tr>
     <th>Title</th>
     <th>Text</th>
-  </tr>
+  </tr
   <% @articles.each do |article| %>
     <tr>	
       <td><%= article.title %></td>
@@ -10,9 +10,9 @@
       <td><%= link_to 'Show', article_path(article) %></td>
       
       <td><%= link_to 'Delete',article_path(article), method: :delete, confirm: 'Are you sure?' %></td>
-      <td><%= link_to 'Add Tags', new_tag_path %></br></td>
-      <td> <%= link_to 'Delete Tags', tag_path %></br></td>
+      
     </tr>
   <% end %>
 </table>
 <!--<%= link_to 'Add article', new_article_path %>-->
+

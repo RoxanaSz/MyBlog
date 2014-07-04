@@ -1,23 +1,24 @@
-
-
 <h1>New Tag </h1>
 
-<%= form_for @tag do |f| %>
-  <% if @tag.errors.any? %>
+
+  <%= form_for [@article, @tags] do |f| %>
+<% if f.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
+      <h2><%= pluralize(f.errors.count, "error") %> prohibited this tag from being saved:</h2>
  
       <ul>
-      <% @tag.errors.full_messages.each do |msg| %>
+      <% f.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
- 
+   
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+ <%= f.submit "Add"%>
   <% end %>
-<%= link_to 'Back', articles_path %>
+
+<%= link_to 'Back', article_tags_path(@article) %>

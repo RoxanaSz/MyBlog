@@ -59,7 +59,7 @@ class TagsController < ApplicationController
   def destroy
     @article = Article.find(params[:article_id])
     @tag = Tag.find(params[:id])
-    @tag.destroy
+    #@tag.destroy
     @article.tags.delete(@tag)
     redirect_to article_tags_path(@article)
   end

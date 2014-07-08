@@ -1,8 +1,9 @@
 <h1>Welcome to MyBlog</h1>
-<p>Add new articles !</p>
-<td><%= link_to 'Add new article', new_article_path %></td>
+
 <p>Articles </p>
 <td><%= link_to 'View article', articles_path %></td>
 <p>Category </p>
 <td><%= link_to 'View categories', categories_path %></td>
+<p>Profile Picture </p>
+<td><%= link_to 'Profilepic', profilepic_path %></td>
 

@@ -25,7 +25,7 @@ class TagsController < ApplicationController
     if @tag.save
       redirect_to article_tags_path(@article, @tag)
     else
-      rander :new
+      render :new
     end
 
 

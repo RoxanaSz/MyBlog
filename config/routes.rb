@@ -10,7 +10,7 @@ Rails.application.routes.draw do
    root 'welcome#index'
 
   # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
+    #get 'user/:id' => 'welcome#index'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
@@ -22,7 +22,9 @@ Rails.application.routes.draw do
    resources :tags
   end
 #end
-  resources :users
+  resources :users 
+  resources :profilepics
+
   #resources :tags
   #   resources :products
 

@@ -1,0 +1,14 @@
+<table>
+ 
+ <% @profilepics.each do |profilepic| %>
+    <tr>	
+<!-- <td><%= profilepic.original_file_name %></td> -->
+<td><%= image_tag("#{profilepic.original_path}") %></td>
+
+    </tr>
+  <% end %>
+
+<%= link_to 'Back', root_path %>
+
+
+

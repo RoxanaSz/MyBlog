@@ -1,0 +1,5 @@
+<%= @profilepic.original_file_name %> 
+<!-- <td><%= image_tag("#{@profilepic.original_path}") %></td>-->
+
+     
+

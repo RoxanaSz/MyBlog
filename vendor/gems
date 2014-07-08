@@ -1,0 +1,2 @@
+ERROR: "bundle install" was called with arguments ["paperclip"]
+Usage: "bundle install [OPTIONS]"

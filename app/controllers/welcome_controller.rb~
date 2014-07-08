@@ -1,0 +1,5 @@
+class WelcomeController < ApplicationController
+  def index
+    @profilepic = Profilepic.where("user_id =#{current_user.id}")
+  end
+end

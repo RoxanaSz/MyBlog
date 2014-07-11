@@ -1,16 +1,22 @@
 <table>
   <tr>
     <th>Title</th>
-    <th>Text</th>
+   <!--  <th>Text</th> -->
   </tr
   <% @articles.each do |article| %>
     <tr>	
-      <td><%= article.title %></td>
-    
-      <td><%= link_to 'Show', article_path(article) %></td>
+    	<%if article.published %> 
+    	   <a href= "article.title"  >
+     <td><%= link_to article.title, article_path(article) %></td> 
+     
+    <!--  <td><%= article.title %></td> -->
+   
+      <!-- <td><%= link_to 'Show', article_path(article) %></td> -->
       
+    <% if can? :delete, Article %>
       <td><%= link_to 'Delete',article_path(article), method: :delete, confirm: 'Are you sure?' %></td>
-      
+      <%end%>
+       <%end%>
     </tr>
   <% end %>
 </table>

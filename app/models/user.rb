@@ -5,9 +5,23 @@ class User < ActiveRecord::Base
   # attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   devise :database_authenticatable, :registerable,:recoverable,
      :rememberable, :trackable, :validatable,:authentication_keys => [:username]
-  attr_accessor :username
+  #attr_accessor :username 
   has_many :profilepics
+  has_many :articles
+  
+  validates :role,
+    :inclusion  => { :in => [ 'admin', 'editor', 'moderator' ]}
+  # enum role: [ :admin, :editor, :moderator ] 
 
+   #ROLES = %w[ admin editor moderator ]
+  #validates :role, :inclusion => { :in => ROLES }
+  
+  # ROLES.each do |role_name|        
+  #  def #{role_name}?              
+   #   role == '#{role_name}'       
+   #end                       
+    #end
+  
    has_attached_file :avatar ,
 		     #:storage => :database,
                      :processors => [ :cropper ],
@@ -25,6 +39,9 @@ class User < ActiveRecord::Base
 
 after_update :reprocess_avatar, :if => :cropping? 
 
+  def user_role
+      self.user.role if self.user
+  end
   def cropping?  
     !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank?  
   end  

@@ -1,15 +1,60 @@
+<% if user_signed_in? %>
+<% if current_user.role == 'moderator' || current_user.role == 'admin' %>
+
+<p><strong>Publishing articles</strong></p>
 <table>
   <tr>
     <th>Title</th>
     <th>Text</th>
+    <th>Category</th>
+     <th>Status</th>
+  </tr>
+ 
+  <% @articles.each do |article| %>
+    <tr>
+    	
+    	  <%if !article.published %> 
+    	  
+            <td><%= article.title %></td>
+            <td><%= article.text %></td>
+            <td><%= article.category_name %></td>
+            <td><%= link_to 'Publish',approve_article_path(article) %> </td>
+          <%end%>
+        
+  <% end %>
+<%end%>
+
+</table>
+</br>
+<%end%>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Category</th>
+    <th>Author</th>
+    <th>Profile picture</th>
   </tr>
   <% @articles.each do |article| %>
     <tr>
-      <td><%= article.title %></td>
+    	<%if article.published %> 
+    		     <a href= "article.title">    
+     <td><%= link_to article.title, article_path(article) %></td> 
+   <!--   <td><%= article.title %></td>
       <td><%= article.text %></td>
-      <td><%= article.category_name %></td>
-     
-<% end %>
+     -->
+      <a href= "article.category_name">  
+      <td><%= link_to article.category_name, article_path(article) %></td>   
+      <td><%= article.username %></td> 
+   <td>  <%= image_tag("images3.png",height: '50', width: '50')%></td>
+  
+  <% end %>
+   <% end %>
+
 </table>
+</br>
+</br>
+
+<% if can? :create, Article %>
 <%= link_to 'Add article', new_article_path %></br>
+<%end%>
 <%= link_to 'Back', welcome_index_path %>

@@ -9,20 +9,24 @@
 </p>
 
 
-<%= link_to 'Tags', article_tags_path(@article) %></br>
-
 
     <p><strong>Tags:</strong>
   <% @article.tags.each do |tag| %>  
   <tr> 
     <!-- <td><%= tag.name %></td> --> 
      <a href= "tag.name">    
-     <td><%= link_to tag.name %></td>   
+     <td><%= link_to tag.name, article_tag_path(@article, tag) %></td>   
  <% end %></p> 
 
 
+ <% if user_signed_in? %>
+<%= link_to 'Update Tags', article_tags_path(@article) %></br>
+<%end%>
 
+<!-- <% if can? :update, Article %> 
+<%= link_to 'Edit Article', edit_article_path(@article)%></br>
+<%end%> -->
 
-
-<%= link_to 'Edit Article', edit_article_path(@article) %></br>
+<%= link_to_if(can?(:update, Article),'Edit Article', edit_article_path(@article)) {} %>
+</br>
 <%= link_to 'Back', welcome_index_path %>

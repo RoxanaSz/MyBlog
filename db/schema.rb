@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140710115802) do
+ActiveRecord::Schema.define(version: 20140715125518) do
 
   create_table "admins", force: true do |t|
     t.datetime "created_at"
@@ -27,9 +27,11 @@ ActiveRecord::Schema.define(version: 20140710115802) do
     t.integer  "category_id"
     t.boolean  "published",   default: false
     t.string   "username"
+    t.integer  "user_id"
   end
 
   add_index "articles", ["category_id"], name: "index_articles_on_category_id", using: :btree
+  add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"

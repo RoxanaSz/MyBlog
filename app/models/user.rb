@@ -3,41 +3,26 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # Setup accessible (or protected) attributes for your model
   # attr_accessible :email, :password, :password_confirmation, :remember_me, :username
+  
   devise :database_authenticatable, :registerable,:recoverable,
      :rememberable, :trackable, :validatable,:authentication_keys => [:username]
-  #attr_accessor :username 
   has_many :profilepics
   has_many :articles
   
   validates :role,
-    :inclusion  => { :in => [ 'admin', 'editor', 'moderator' ]}
-  # enum role: [ :admin, :editor, :moderator ] 
-
-   #ROLES = %w[ admin editor moderator ]
-  #validates :role, :inclusion => { :in => ROLES }
-  
-  # ROLES.each do |role_name|        
-  #  def #{role_name}?              
-   #   role == '#{role_name}'       
-   #end                       
-    #end
-  
-   has_attached_file :avatar ,
+    :inclusion  => { :in => [  'editor', 'moderator' ]}
+    
+  has_attached_file :avatar ,
 		     #:storage => :database,
                      :processors => [ :cropper ],
 		     :styles => { :medium => "300x300>", :small => "100x100#", :square => "200x200#", :large => "400x400>" },  
                      :default_url => "small.png"
                      
- validates_attachment_content_type :avatar, 
+  validates_attachment_content_type :avatar, 
 			:content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 
- attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-
-#validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
-
-#do_not_validate_attachment_file_type :avatar
-
-after_update :reprocess_avatar, :if => :cropping? 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  after_update :reprocess_avatar, :if => :cropping? 
 
   def user_role
       self.user.role if self.user
@@ -50,10 +35,10 @@ after_update :reprocess_avatar, :if => :cropping?
     @geometry ||= {}  
     @geometry[style] ||= Paperclip::Geometry.from_file(avatar.path(style))  
   end  
-
-
+  
   private  
   def reprocess_avatar  
     avatar.reprocess!  
   end
+ 
 end

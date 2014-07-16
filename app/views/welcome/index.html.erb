@@ -1,44 +1,55 @@
-<h1>Welcome to MyBlog</h1>
-
-<% if can? :read, Article %>
-<p>Articles 
-<td><%= link_to 'View articles', articles_path %></td>
-<%end%>
-
-<p>Category </br>
-<td><%= link_to 'View categories', categories_path %></td>
-<% if user_signed_in? %>
-<p>Profile Picture </br>
-<td><%= link_to 'Profilepic', profilepics_path %></td>
-<%end%>
- <% if can? :manage, User %>
-<p>All Users</br>
-<td><%= link_to 'Manage users', users_path %></td>
-<%end%>
-
-<% if user_signed_in? %>
- <% if can? :create, Article %>
-<% if @number!=0 %>
-
- </br>
-<p>Pending Article
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-    <th>Category</th>
-  </tr>
- 
- <% @articles.each do |article| %>
-    <tr>
-    	 <%if article.username == current_user.username %> 
-    	 
-    	    <td><%= article.title %></td>
-            <td><%= article.text %></td>
-            <td><%= article.category_name %></td>  </br>
-          <%end%>
-          
-  <% end %>
-<%end%>
-<%end%>
-<%end%>
+<!DOCTYPE html>
+<html lang="en">
+<head>  
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% content_for :title do %>Home - My Blog<% end %>
+</head>
+<body>
+    <div class="container">
+        <div class="row"> 
+		        <h1>Welcome to MyBlog</h1>
+            	<% if can? :read, Article %>
+            		<h5>Articles</h5> 
+            		<td><%= link_to 'View articles', articles_path %></td></br>
+            	<%end%>
+            	            
+            		<h5>Category</h5> 
+            		<td><%= link_to 'View categories', categories_path %></td>
+                <% if user_signed_in? %>
+            		<h5>Profile Picture </h5>
+            		<td><%= link_to 'Profilepic', profilepics_path %></td>
+            	<%end%>
+            	<% if can? :manage, User %>
+            		<h5>All Users</h5>
+            		<td><%= link_to 'Manage users', users_path %></td>
+            	<%end%>
+            
+            	<% if user_signed_in? %>
+             	<% if can? :create, Article %>
+            	<% if @number!=0 %>            
+             	</br>
+            		<p>Pending Article
+            		<table class="table ">
+            			  <tr>
+            			    <th>Title</th>
+            			    <th>Text</th>
+            			    <th>Category</th>
+            			  </tr>
+             
+            		 	<% @articles.each do |article| %>
+            		    <tr>
+            		    	 <%if article.username == current_user.username %>		    	 
+            		    	    <td><%= article.title %></td>
+            		            <td><%= article.text %></td>
+            		            <td><%= article.category_name %></td>  </br>
+            		         <%end%>          
+            			<% end %>
+            	<%end%>
+            	<%end%>
+            	<%end%>
+</div> 
+</div>    
+</body>
+</html>

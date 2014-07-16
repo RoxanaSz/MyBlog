@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
+  
   before_action :authenticate_user! , except: [:index,:show]
+  
   def index
     @categories=Category.all
   end
@@ -12,10 +14,8 @@ class CategoriesController < ApplicationController
     @category=Category.new(category_params)
     @category.save
       redirect_to new_category_path, alert: "Category created!"
-    #else
-     # render :new
-    #end
   end
+  
   def show
     @category = Category.find(params[:id])
     @articles = @category.articles
@@ -26,6 +26,4 @@ private
     def category_params
       params.required(:category).permit(:name)
     end
-
-
 end

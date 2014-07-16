@@ -12,4 +12,11 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap
+
+
  */
+
+.bs-example{
+  margin: 20px;
+}

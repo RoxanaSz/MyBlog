@@ -1,34 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>MyBlog</title>
+  <title><%= content_for?(:title) ? yield(:title) : "My Blog" %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<p class="navbar-text pull-right">
-<% if user_signed_in? %>
-  Logged in as <%= current_user.role %> with <strong><%= current_user.email %></strong>.
-
-  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-
- <li class="round-image-50"><%= image_tag(current_user.avatar.url(:medium)) %></li>
-
-<!-- <%= image_tag current_user.avatar.url(:square)%> -->
-</br>
-<!--<%= image_tag current_user.avatar.url(:medium), :height => "50%" , :width => "50%"%>
- <tr>
-
-	
-<!--<%= image_tag("#{current_user.avatar_file_name}")  %>
- <%= image_tag "http://graph.facebook.com/#{current_user.id}/picture?type=small" %> -->
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-<% end %>
+    <div class="container">
+        <div class="row"> 	
+        	</br>       </br>	
+          <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+       	      <div class="navbar-header"> 
+                <a class="navbar-brand" href="#"><strong> MyBlog </strong></a>
+              </div>
+              <div>	
+                <ul class="nav nav-pills navbar-left">
+       		      <li  class="<%= 'active' if current_page?(root_path) %>"><a href="http://localhost:3000"><span class="glyphicon glyphicon-home"></span>  Home</a></li>
+      		     <% if can? :read, Article %>
+      		      <li class="<%= 'active' if current_page?(articles_path) %>"><a href= "http://localhost:3000/articles/"><span class="glyphicon glyphicon-file"></span> Articles </a></li>
+       		     <%end%>
+       		      <li class="<%= 'active' if current_page?(categories_path) %>"><a href="http://localhost:3000/categories/ " ><span class="glyphicon glyphicon-list-alt"></span> Categories </a></li>
+       		        	 <% if user_signed_in? %>
+       		      <li class="<%= 'active' if current_page?(profilepics_path) %>"><a href="http://localhost:3000/profilepics" ><span class="glyphicon glyphicon-picture"></span> Pictures </a></li>
+          	    			<%end%>
+          	    </ul>
+          	 <% if user_signed_in? %>
+                 <ul class="nav nav-pills navbar-right">  
+                   <li ><%= image_tag(current_user.avatar.url(:medium),height: '50', width: '50') %>
+                    <div class="navbar-text navbar-right">Signed in as <%= current_user.role %> with <strong><%= current_user.email %></strong>
+                   <a href= "/users/edit" > Edit profile </a>
+                 	 <%= link_to "Logout", destroy_user_session_path, method: :delete,  :class => "nav-bar link" %></li>                 
+                 </br>
+            <% else %>
+        			     <ul class=" pull-right nav nav-pills ">  			     	
+          				 	<li class=" pull-right " ><a href="http://localhost:3000/users/sign_up" ><span class="glyphicon glyphicon-user"></span> Sign up </a></li>   
+          				 	<li ><a href="http://localhost:3000/users/sign_in" ><span class="glyphicon glyphicon-user"></span> Login </a></li>         
+       						 </ul>
+            <% end %>
+                 </ul>   
+    	              </div>
+            </div>
+	     </nav>
+       </div> 
+    </div> 
+</body>
 
 
 <%= yield %>

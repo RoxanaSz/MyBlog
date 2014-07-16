@@ -1,9 +1,7 @@
 class RegistrationsController < Devise:: RegistrationsController 
 
-
-   #before_filter :check_permissions, :only => [:new, :create, :cancel]
-  #skip_before_filter :require_no_authentication
- skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!
+  
   def check_permissions
     authorize! :create, resource
   end

@@ -3,8 +3,6 @@ class WelcomeController < ApplicationController
   
   def index
     @articles=Article.where("published = false")
-     #@articles=Article.where(:username => current_user.username)
-      
-      @number=@articles.count
+    @number=@articles.count
   end
 end

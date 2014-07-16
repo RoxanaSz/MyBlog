@@ -1,24 +1,34 @@
-<h1>Tags in <%= @article.title %></h1>
-
-<table>
-  <tr>
-    <th>Tag name</th>
-  </tr>
-
-<% for tag in @tags %>
-  <tr>
-    <td><%= tag.name %></td>
-   <!-- <td><%= link_to 'Show', article_tag_path(@article, tag) %></td> -->
-    
-    <td><%= link_to 'Edit', edit_article_tag_path(@article, tag) %></td>
-    <td><%= link_to 'Destroy', article_tag_path(@article, tag), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New tag', new_article_tag_path(@article) %></br>
-<%= link_to 'Back to Article', @article %>
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% content_for :title do %> Tags - My Blog<% end %>
+</head>
+<body>
+    <div class="container">
+    	<div class="page-header">
+    	  <h1>Tags in "<%= @article.title %> "</h1>
+        </div>
+        <div class="row">		
+        		<table class="table table-striped">
+        		  <tr>
+        		    <th>Tag name</th>
+        		    <th colspan="3">Options</th>
+        		  </tr>		
+        		<% for tag in @tags %>
+        		  <tr>	
+        		    <td><%= tag.name %></td>
+        		    <td><%= link_to 'Edit', edit_article_tag_path(@article, tag) %></td>
+        		    <td><%= link_to 'Destroy', article_tag_path(@article, tag), :confirm => 'Are you sure?', :method => :delete %></td>
+        		  </tr>
+        		<% end %>
+        		</table>		
+        		<br />		
+        		<div><%= link_to 'New tag', new_article_tag_path(@article),:class => 'btn btn-large btn-primary' %></div><br />
+        		<div><%= link_to 'Back to Article', @article,:class => 'btn btn-large btn-primary' %> </div>
+        </div>
+</div>
+</body>
+</html>

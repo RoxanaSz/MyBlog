@@ -1,60 +1,76 @@
-<% if user_signed_in? %>
-<% if current_user.role == 'moderator' || current_user.role == 'admin' %>
-
-<p><strong>Publishing articles</strong></p>
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Text</th>
-    <th>Category</th>
-     <th>Status</th>
-  </tr>
- 
-  <% @articles.each do |article| %>
-    <tr>
-    	
-    	  <%if !article.published %> 
-    	  
-            <td><%= article.title %></td>
-            <td><%= article.text %></td>
-            <td><%= article.category_name %></td>
-            <td><%= link_to 'Publish',approve_article_path(article) %> </td>
-          <%end%>
-        
-  <% end %>
-<%end%>
-
-</table>
-</br>
-<%end%>
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Category</th>
-    <th>Author</th>
-    <th>Profile picture</th>
-  </tr>
-  <% @articles.each do |article| %>
-    <tr>
-    	<%if article.published %> 
-    		     <a href= "article.title">    
-     <td><%= link_to article.title, article_path(article) %></td> 
-   <!--   <td><%= article.title %></td>
-      <td><%= article.text %></td>
-     -->
-      <a href= "article.category_name">  
-      <td><%= link_to article.category_name, article_path(article) %></td>   
-      <td><%= article.username %></td> 
-   <td>  <%= image_tag("images3.png",height: '50', width: '50')%></td>
-  
-  <% end %>
-   <% end %>
-
-</table>
-</br>
-</br>
-
-<% if can? :create, Article %>
-<%= link_to 'Add article', new_article_path %></br>
-<%end%>
-<%= link_to 'Back', welcome_index_path %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% content_for :title do %>Articles - My Blog<% end %>
+</head>
+<body>
+      <div class="container">
+        <div class="row"> 
+			</br>			</br>
+    	<% if user_signed_in? %>
+    	 <% if current_user.role == 'moderator' || current_user.role == 'admin' %>
+    	 	<% if @number!=0 %>
+    		<p><strong>Publishing articles</strong></p>
+    			<table class="table">
+          			  <tr>
+          			    <th>Title</th>
+          			    <th>Text</th>
+          			    <th>Category</th>
+          			     <th>Status</th>
+          			  </tr> 
+           	     <% @articles.each do |article| %>
+             			   <tr>    	
+              	  <%if !article.published %>     	  
+                      <td><%= article.title %></td>
+                      <td><%= article.text %></td>
+                      <td><%= article.category_name %></td>
+                      <td><%= link_to 'Publish',approve_article_path(article) %> </td>
+                    <%end%>
+                  <% end %>
+                <%end%>
+    	      </table>
+    	</br>
+    	<%end%>
+    		<%end%>
+    	<table class="table table-striped">
+         <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Author</th>
+          <th>Profile picture</th>
+         </tr>
+        <% @articles.each do |article| %>
+         <tr>
+        	<%if article.published %> 
+          <a href= "article.title"> <td><%= link_to article.title, article_path(article) %></td> 
+          <a href= "article.category_id">     
+          <td><%= link_to article.category_name, controller: "categories", action: "show", id: "#{article.category_id}" %></td>  
+          <td><%= article.username %></td> 
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          
+          <% if article.user %>
+    			<td><%= image_tag(article.user.avatar.url(:medium),height: '50', width: '50')  if article.user%></td>
+      		<%else%>
+      			<td><img src="http://placehold.it/50x50"></td>
+      	    <% end %>
+      	<% end %>
+         <% end %>
+         <tr>
+    	</table>
+    	</br>
+    	</br>	   	
+        <div class="btn-group "> 
+          <% if can? :create, Article %>
+           <div class="row"> <a button type="button" class="btn btn-default" href="http://localhost:3000/articles/new">Add New Article</a></button></div></br>
+          <%end%> 
+           <div class="row">   <a button type="button" class="btn btn-default" href="/">Back</a></button></div></br>
+        </div>  
+        <!--  <%= link_to 'Add article', new_article_path %></br>     	  <%= link_to 'Back', welcome_index_path %> -->
+</div>
+</div>
+</body>
+</html>

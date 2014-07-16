@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
+
+ 
   #devise_for :admins
   get 'welcome/index'
 
@@ -23,6 +25,9 @@ Rails.application.routes.draw do
    resources :tags
   end
   
+   resources :users 
+  resources :profilepics
+
   #resources :articles do
    # put :approve
   #end
@@ -32,10 +37,9 @@ Rails.application.routes.draw do
   #end
   get "articles/:id/approve" => "articles#approve", :as => "approve_article"
   #get "articles/:id/category/show" => "categories#show", :as => "show_category"
+  #get "/users/sign_out" => "devise/sessions#destroy" 
   
-  resources :users 
-  resources :profilepics
-
+ 
   #resources :tags
   #   resources :products
 

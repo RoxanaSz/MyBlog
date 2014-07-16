@@ -1,32 +1,39 @@
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
- 
-<p>
-  <strong>Text:</strong>
-  <%= @article.text %>
-</p>
-
-
-
-    <p><strong>Tags:</strong>
-  <% @article.tags.each do |tag| %>  
-  <tr> 
-    <!-- <td><%= tag.name %></td> --> 
-     <a href= "tag.name">    
-     <td><%= link_to tag.name, article_tag_path(@article, tag) %></td>   
- <% end %></p> 
-
-
- <% if user_signed_in? %>
-<%= link_to 'Update Tags', article_tags_path(@article) %></br>
-<%end%>
-
-<!-- <% if can? :update, Article %> 
-<%= link_to 'Edit Article', edit_article_path(@article)%></br>
-<%end%> -->
-
-<%= link_to_if(can?(:update, Article),'Edit Article', edit_article_path(@article)) {} %>
-</br>
-<%= link_to 'Back', welcome_index_path %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% content_for :title do %> <%= @article.title %> - My Blog<% end %>
+</head>
+<body> 
+</br><br />  
+<div class="container">
+    <div class="row row-centered">
+      <div class="col-lg-6 col-centered">
+			    <h4>  <strong>Title:</strong></h4>
+			        <%= @article.title %>
+		      <h4>  <strong>Text:</strong></h4>
+		          <%= @article.text %>
+          <h4><strong>Tags:</h4>
+               <% @article.tags.each do |tag| %>  
+               <tr> 
+               <a href= "tag.name"> <td><%= link_to tag.name, article_tag_path(@article, tag) %></td>   
+		           <% end %></p> 
+		  <% if user_signed_in? %>
+		 	<div class="btn-group "> 
+	 			 <div class="row">  	   
+		          <% if can? :create, Article %>
+		       		<div><%= link_to "Update Tags", article_tags_path(@article),:class => 'btn btn-large btn-primary' %></div><br />
+		       	  <%end%> 
+		  
+			        <div><%= link_to_if(can?(:update, Article),'Edit Article', edit_article_path(@article),:class => 'btn btn-large btn-primary') {}%>  </div> <br />
+			        <div><%= link_to "Back", welcome_index_path,:class => 'btn btn-large btn-primary' %></div><br />
+	       		  </div>
+	        </div>
+	    <%end%>
+	  </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,14 +1,27 @@
-<table>
- 
- <% @profilepics.each do |profilepic| %>
-    <tr>	
-<!-- <td><%= profilepic.original_file_name %></td> -->
-<td><%= image_tag("#{profilepic.original_path}") %></td>
-
-    </tr>
-  <% end %>
-
-<%= link_to 'Back', root_path %>
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% content_for :title do %> Pictures - My Blog<% end %>
+</head>
+<body>
+    <div class="container">
+    	<div class="page-header">
+    	 <h1> User's pictures </h1>
+    	</div>
+        <div class="row"> 
+          <table>           
+           <% @profilepics.each do |profilepic| %>
+              <tr>	
+                <td><%= image_tag("#{profilepic.original_path}") %></td>          
+              </tr>
+           <% end %>
+          </table>
+          <%= link_to 'Back', root_path,:class =>  'btn btn-large btn-primary'%>
+</div>
+</div>
+</body>
+</html>
 

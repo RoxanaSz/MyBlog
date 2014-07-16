@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% content_for :title do %>Edit User - My Blog<% end %>
+</head>
+<body>
+    <div class="container">
+    	<div class="page-header">
+    	 <h1>All Users </h1>
+        </div>
+        <div class="row">
+    			<% if @user.errors.any? %>
+    			    <div id="error_explanation">			
+    			      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+    			      <ul>
+    			        <% @user.errors.full_messages.each do |msg| %>
+    			            <li><%= msg %></li>
+    			        <% end %>
+    			      </ul>
+    			    </div>
+    			<% end %>
+    			<%= form_for @user do |f| %>
+    			  <div> <%= f.label 'First name' %></div>
+    			  <%= f.text_field :firstname %>
+    			  <br/>
+    			 <div> <%= f.label 'Last name' %> </div>
+    			  <%= f.text_field :lastname %>
+    			  <br/>
+    			 <div>  <%= f.label 'Email' %> </div>
+    			  <%= f.text_field :email %>
+    			  <br/>	 
+    			   </br>			 
+            <%= f.label 'Role' %>       
+            <%= f.select :role, options_for_select([['editor'], ['moderator']], :selected => :role) %>
+      
+    			  <div> <%= f.label 'Address' %> </div>
+    			  <%= f.text_field :address %>
+    			  </br><br />
+    			  <div> <%= f.submit %>	</div>
+    			<% end %>
+    			<br />
+    			<div><%= link_to 'Back ', users_path,:class => 'btn btn-large btn-primary' %> </div>
+      </div>
+</div>
+</body>
+</html>

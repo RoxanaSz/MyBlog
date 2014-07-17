@@ -31,8 +31,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
+    @article = Article.find(params[:id])   
+    @related_articles = Article.where("category_id =#{@article.category_id}")
     @tags=Tag.all
+     #@related_articles = Article.tagged_with(@article.tag_list, any: true)
+     #@related_articles =Article.joins(:taggings).where('articles.id != ?', @article.id).where(taggings: { tag_id: @article.tag_ids })
+     #@related_articles = Article.tagged_with(@article.tag_list)
   end
 
   def category_name

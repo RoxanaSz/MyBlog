@@ -20,6 +20,9 @@ class Article < ActiveRecord::Base
    self.user.avatar_file_name if self.user
   end
  
+  #def self.tagged_with(name)
+   # Tag.find_by_name(name).articles
+  #end
   def tag_list
     self.tags.collect do |tag|
       tag.name

@@ -32,6 +32,29 @@
 	       		  </div>
 	        </div>
 	    <%end%>
+	      <h4><strong>Related Articles: </h4>
+	       <!--aici-->	       
+	       <% @related_articles.each do |art| %>
+                     <tr>  
+                       <%if @article.id != art.id %>        
+                  <%if art.published %>        
+                     <!-- <td><%= art.title %></td>-->
+                     <li> <a href= "article.title"> <td><%= link_to art.title , article_path(art) %></td></li>
+                   <%end%>
+        <% end %>
+         <% end %>
+         <% related_art=Array.new%>
+        <% @article.tags.each do |tag| %>
+                <% tag.articles.each do |art| %>
+                    <%if @article.id != art.id %>      
+                      <% related_art << art %>
+                    <% end %> 
+                <% end %>   
+        <%end%>
+        <% related_art.uniq.each do |a| %>
+            <li><%= link_to a.title, article_path(a) %></li>
+        <% end %> 
+               
 	  </div>
 </div>
 </div>

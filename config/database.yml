@@ -1,7 +1,7 @@
 development:
   adapter: mysql
   encoding: utf8
-  database: article_db
+  database: article_db_4
   username: root
   password: 
   host: 127.0.0.1
@@ -10,7 +10,7 @@ development:
 test:
   adapter: mysql
   encoding: utf8
-  database: article_db
+  database: article_db_4
   username: root
   password: 
   host: 127.0.0.1
@@ -19,7 +19,7 @@ test:
 production:
   adapter: mysql
   encoding: utf8
-  database: article_db
+  database: article_db_4
   username: root
   password: 
   host: 127.0.0.1

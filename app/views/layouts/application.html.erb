@@ -30,7 +30,8 @@
                  <ul class="nav nav-pills navbar-right">  
                    <li ><%= image_tag(current_user.avatar.url(:medium),height: '50', width: '50') %>
                     <div class="navbar-text navbar-right">Signed in as <%= current_user.role %> with <strong><%= current_user.email %></strong>
-                   <a href= "/users/edit" > Edit profile </a>
+                  
+                   <%= link_to 'Edit profile', edit_user_registration_path, :class => 'nav-bar link' %> |
                  	 <%= link_to "Logout", destroy_user_session_path, method: :delete,  :class => "nav-bar link" %></li>                 
                  </br>
             <% else %>

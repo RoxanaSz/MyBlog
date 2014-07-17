@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { registrations: 'registrations' }
+ devise_for :users, :controllers => { registrations: 'registrations' }
 
- 
-  #devise_for :admins
   get 'welcome/index'
-
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -22,12 +19,13 @@ Rails.application.routes.draw do
   #resources :articles
   resources :categories #do
   resources :articles do
-   resources :tags
+    resources :tags
   end
   
-   resources :users 
+  resources :users 
   resources :profilepics
-
+  get "articles/:id/approve" => "articles#approve", :as => "approve_article"
+ 
   #resources :articles do
    # put :approve
   #end
@@ -35,7 +33,7 @@ Rails.application.routes.draw do
   #scope "/admin" do
     #resources :users
   #end
-  get "articles/:id/approve" => "articles#approve", :as => "approve_article"
+ 
   #get "articles/:id/category/show" => "categories#show", :as => "show_category"
   #get "/users/sign_out" => "devise/sessions#destroy" 
   

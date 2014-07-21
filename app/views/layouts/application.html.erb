@@ -13,7 +13,7 @@
           <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container-fluid">
        	      <div class="navbar-header"> 
-                <a class="navbar-brand" href="#"><strong> MyBlog </strong></a>
+                <a class="navbar-brand" href="#"><strong>MyBlog</strong></a>
               </div>
               <div>	
                 <ul class="nav nav-pills navbar-left">
@@ -24,12 +24,14 @@
        		      <li class="<%= 'active' if current_page?(categories_path) %>"><a href="http://localhost:3000/categories/ " ><span class="glyphicon glyphicon-list-alt"></span> Categories </a></li>
        		        	 <% if user_signed_in? %>
        		      <li class="<%= 'active' if current_page?(profilepics_path) %>"><a href="http://localhost:3000/profilepics" ><span class="glyphicon glyphicon-picture"></span> Pictures </a></li>
+
+                <li class="<%= 'active' if current_page?(user_comments_path(current_user)) %>"><%= link_to 'Messages', user_comments_path(current_user) %> </li>
           	    			<%end%>
           	    </ul>
           	 <% if user_signed_in? %>
                  <ul class="nav nav-pills navbar-right">  
                    <li ><%= image_tag(current_user.avatar.url(:medium),height: '50', width: '50') %>
-                    <div class="navbar-text navbar-right">Signed in as <%= current_user.role %> with <strong><%= current_user.email %></strong>
+                    <div class="navbar-text navbar-right">Signed in as <strong><%= current_user.role %></strong> with <strong><%= current_user.email %></strong>
                   
                    <%= link_to 'Edit profile', edit_user_registration_path, :class => 'nav-bar link' %> |
                  	 <%= link_to "Logout", destroy_user_session_path, method: :delete,  :class => "nav-bar link" %></li>                 
@@ -48,7 +50,7 @@
     </div> 
 </body>
 
-
+<br /><br />
 <%= yield %>
 
 <% if notice %>

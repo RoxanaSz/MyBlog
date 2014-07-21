@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% content_for :title do %>Messages - My Blog<% end %>
+</head>
+<body>
+      <div class="container">
+        <div class="row"> 
+      			</br>			</br>
+       	<table class="table table-striped">
+         <tr>
+          <th>Author</th>
+          <th>Subject</th>
+          <th>Content</th>
+          <th>Options</th>
+         </tr>
+         
+        <% @comments.each do |comment| %>
+         <tr>
+           <%if comment. commentable_type="User"%>
+        <td><%= comment.author_name%></td>
+          <td><%= comment.subject%></td>  
+          <td><%= comment.content%></td> 
+         </tr>
+         <%end%>
+         <% end %>        
+             	</table>    	  
+            
+           <div class="row">   <a button type="button" class="btn btn-default" href="/">Back</a></button></div></br>
+     
+        <!--  <%= link_to 'Add article', new_article_path %></br>     	  <%= link_to 'Back', welcome_index_path %> -->
+
+</div>
+</div>
+</body>
+</html>

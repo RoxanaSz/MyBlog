@@ -13,6 +13,8 @@
       <div class="col-lg-6 col-centered">
 			    <h4>  <strong>Title:</strong></h4>
 			        <%= @article.title %>
+			    <h4>  <strong>Author:</strong></h4>
+              <%= @article.user.username %>
 		      <h4>  <strong>Text:</strong></h4>
 		          <%= @article.text %>
           <h4><strong>Tags:</h4>
@@ -29,9 +31,60 @@
 		  
 			        <div><%= link_to_if(can?(:update, Article),'Edit Article', edit_article_path(@article),:class => 'btn btn-large btn-primary') {}%>  </div> <br />
 			        <div><%= link_to "Back", welcome_index_path,:class => 'btn btn-large btn-primary' %></div><br />
-	       		  </div>
-	        </div>
+	       		<div><%= link_to "Sent Message", new_user_comment_path(@article.user_id), :class => 'btn btn-large btn-primary' %></div> 
+	       
 	    <%end%>
+	   
+     
+	       </div>
+	      <h2>Add a comment:</h2>
+          <%= form_for([@article, @article.comments.build]) do |f| %>
+         <p>
+              <% if !user_signed_in? %>
+                <%= f.label "Name" %><br>
+                <%= f.text_field :author_name %>
+              </p>
+              <p>
+                <%= f.label "Email" %><br>
+                <%= f.text_field :author_email %>
+              </p>
+              <%end%>
+              <p>
+                <%= f.label :content %><br>
+                <%= f.text_area :content %>
+              </p>
+              <p>
+                <%= f.submit %>
+              </p>
+            <% end %>
+	        
+	            <h2>Comments</h2>
+        <% @article.comments.order('created_at DESC').each do |comment| %>
+           <!-- <p>   <strong>Commenter:</strong> -->
+         <% if comment.author_id %> <!--if have avatar-->
+           <td> <%= image_tag(User.find(comment.author_id).avatar.url(:medium),height: '50', width: '50') %></td>
+          <%else%>
+            <td><img src="http://placehold.it/50x50"></td>
+          <% end %>
+             <h5><strong><%= comment.author_name %> </strong> said:</h5>
+            </p>           
+            <p>
+            <h5>  <strong>Comment:</strong>
+              <%= comment.content %></h5>
+              <% if user_signed_in? %>
+             <% if current_user.role == 'moderator' || current_user.role == 'admin' %>
+              <%= link_to "Delete", article_comment_path(@article,comment), method: :delete, confirm: 'Are you sure?' %></td>
+           <%end%>
+             <%end%>
+             <%= link_to "Reply", new_article_comment_path(@article,comment) %></td>
+            </p>
+            
+        <% end %>
+	       
+	        
+	        
+	        
+	        
 	      <h4><strong>Related Articles: </h4>
 	       <!--aici-->	       
 	       <% @related_articles.each do |art| %>
@@ -42,7 +95,8 @@
                      <li> <a href= "article.title"> <td><%= link_to art.title , article_path(art) %></td></li>
                    <%end%>
         <% end %>
-         <% end %>
+         <% end %>      
+         
          <% related_art=Array.new%>
         <% @article.tags.each do |tag| %>
                 <% tag.articles.each do |art| %>
@@ -54,7 +108,7 @@
         <% related_art.uniq.each do |a| %>
             <li><%= link_to a.title, article_path(a) %></li>
         <% end %> 
-               
+              </div>
 	  </div>
 </div>
 </div>

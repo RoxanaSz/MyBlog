@@ -9,6 +9,8 @@ class ArticlesController < ApplicationController
       @articles = Article.all.order('created_at DESC')
       @articles2=Article.where("published = false")
       @number=@articles2.count
+      @unpublished_articles=Article.where("published = false")
+      @number_un=@unpublished_articles.count
       @tags =Tag.all
     end   
   end

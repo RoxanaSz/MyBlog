@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
      :rememberable, :trackable, :validatable,:authentication_keys => [:username]
   has_many :profilepics
   has_many :articles
+  has_many :comments, :as => :commentable
   
   validates :role,
     :inclusion  => { :in => [  'editor', 'moderator' ]}

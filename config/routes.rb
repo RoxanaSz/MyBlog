@@ -25,7 +25,15 @@ Rails.application.routes.draw do
   resources :users 
   resources :profilepics
   get "articles/:id/approve" => "articles#approve", :as => "approve_article"
+  
+  resources :users do
+     resources :comments
+  end
+   resources :articles do
+     resources :comments
+  end
  
+  
   #resources :articles do
    # put :approve
   #end

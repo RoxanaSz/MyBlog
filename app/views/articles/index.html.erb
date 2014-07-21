@@ -10,32 +10,33 @@
 <body>
       <div class="container">
         <div class="row"> 
-			</br>			</br>
-    	<% if user_signed_in? %>
-    	 <% if current_user.role == 'moderator' || current_user.role == 'admin' %>
-    	 	<% if @number!=0 %>
-    		<p><strong>Publishing articles</strong></p>
-    			<table class="table">
-          			  <tr>
-          			    <th>Title</th>
-          			    <th>Text</th>
-          			    <th>Category</th>
-          			     <th>Status</th>
-          			  </tr> 
-           	     <% @articles.each do |article| %>
-             			   <tr>    	
-              	  <%if !article.published %>     	  
-                      <td><%= article.title %></td>
-                      <td><%= article.text %></td>
-                      <td><%= article.category_name %></td>
-                      <td><%= link_to 'Publish',approve_article_path(article) %> </td>
-                    <%end%>
-                  <% end %>
-                <%end%>
-    	      </table>
-    	</br>
-    	<%end%>
-    		<%end%>
+      			</br>			</br>
+          	<% if user_signed_in? %>
+          	 <% if current_user.role == 'moderator' || current_user.role == 'admin' %>
+          	 	<% if @number!=0 %>
+          		<p><strong>Publishing articles</strong></p>
+          			<table class="table">
+                			  <tr>
+                			    <th>Title</th>
+                			    <th>Text</th>
+                			    <th>Category</th>
+                			     <th>Status</th>
+                			  </tr> 
+                 	     <% @articles.each do |article| %>
+                   			   <tr>    	
+                    	   <%if !article.published %>     	  
+                            <td><%= article.title %></td>
+                            <td><%= article.text %></td>
+                            <td><%= article.category_name %></td>
+                            <td><%= link_to 'Publish',approve_article_path(article) %> </td>
+                          <%end%>
+                          </tr>
+                        <% end %>
+                        </table>    
+                      <%end%>                       
+                	<%end%>
+          		<%end%>
+          		<br />
     	<table class="table table-striped">
          <tr>
           <th>Title</th>
@@ -50,19 +51,45 @@
           <a href= "article.category_id">     
           <td><%= link_to article.category_name, controller: "categories", action: "show", id: "#{article.category_id}" %></td>  
           <td><%= article.username %></td> 
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"></a>
           
           <% if article.user %>
     			<td><%= image_tag(article.user.avatar.url(:medium),height: '50', width: '50')  if article.user%></td>
       		<%else%>
       			<td><img src="http://placehold.it/50x50"></td>
-      	    <% end %>
+      	  <% end %>
+      	  </tr>
       	<% end %>
-         <% end %>
-         <tr>
+         <% end %>        
     	</table>
-    	</br>
-    	</br>	   	
+    	  
+    	<% if user_signed_in? %>
+              <% if can? :create, Article %>
+              <% if @number_un!=0 %>            
+            
+                <h4>Pending Article</h4>
+                <table class="table ">
+                    <tr>
+                      <th>Title</th>
+                      <th>Text</th>
+                      <th>Category</th>
+                        <th>Options </th>
+                    </tr>          
+                  <% @unpublished_articles.each do |article| %>
+                    <tr>
+                       <%if article.username == current_user.username %>           
+                          <td><%= article.title %></td>
+                            <td><%= article.text %></td>
+                            <td><%= article.category_name %></td>  </br>
+                              <td><%= link_to 'Edit Article', edit_article_path(article) %></td>
+                         <%end%>   
+                         </tr>       
+                  <% end %>
+                  </table>
+              <%end%>
+              <%end%>
+        <%end%>
+</br>
         <div class="btn-group "> 
           <% if can? :create, Article %>
            <div class="row"> <a button type="button" class="btn btn-default" href="http://localhost:3000/articles/new">Add New Article</a></button></div></br>
@@ -70,6 +97,7 @@
            <div class="row">   <a button type="button" class="btn btn-default" href="/">Back</a></button></div></br>
         </div>  
         <!--  <%= link_to 'Add article', new_article_path %></br>     	  <%= link_to 'Back', welcome_index_path %> -->
+
 </div>
 </div>
 </body>

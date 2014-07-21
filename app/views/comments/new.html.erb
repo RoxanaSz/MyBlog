@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <% content_for :title do %> Add Message - My Blog<% end %>
+</head>
+<body>
+    <div class="container">
+    	<div class="page-header">
+    		<h1>New Message </h1>
+    		</div>
+        <div class="row">
+       
+   
+<% form_tag user_comments_path, :method => 'new' do %>
+                  <p>
+          			    <%= label_tag :subject %><br>
+          			    <%= text_field_tag :subject %>
+          			  </p> 
+          			     <p>
+                    <%= label_tag :content %><br>
+                    <%= text_field_tag :content %>
+                  </p>
+                    <% if !user_signed_in? %>
+                  <p>
+                    <%= label_tag :author_name %><br>
+                    <%= text_field_tag :author_name %>
+                  </p>	
+                  <p>
+                    <%= label_tag :author_email %><br>
+                    <%= text_field_tag :author_email %>
+                  </p>
+                  <%end%>		  
+          			  <p>
+          			    <%= submit_tag %>
+          			  </p>
+          	fsdsds
+          			<% end %>
+          		  tgdfh	
+			</br>
+		
+		<div>	<%= link_to 'Back', articles_path,:class => 'btn btn-large btn-primary'  %> </div>
+</div>
+</div>
+</body>
+</html>

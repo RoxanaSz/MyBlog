@@ -25,30 +25,7 @@
             		<h5>All Users</h5>
             		<td><%= link_to 'Manage users', users_path %></td>
             	<%end%>
-            
-            	<% if user_signed_in? %>
-             	<% if can? :create, Article %>
-            	<% if @number!=0 %>            
-             	</br>
-            		<p>Pending Article
-            		<table class="table ">
-            			  <tr>
-            			    <th>Title</th>
-            			    <th>Text</th>
-            			    <th>Category</th>
-            			  </tr>
-             
-            		 	<% @articles.each do |article| %>
-            		    <tr>
-            		    	 <%if article.username == current_user.username %>		    	 
-            		    	    <td><%= article.title %></td>
-            		            <td><%= article.text %></td>
-            		            <td><%= article.category_name %></td>  </br>
-            		         <%end%>          
-            			<% end %>
-            	<%end%>
-            	<%end%>
-            	<%end%>
+        
 </div> 
 </div>    
 </body>
